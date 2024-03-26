@@ -1,8 +1,10 @@
+
 #include<stdio.h>
 #include<stdlib.h>
-#include "Fonctions_activations.h"
+#include"Fonctions_activations.h"
 #include "Types.h"
 #include "Manipulation.h"
+
 
 //Fonction principale
 int main() 
@@ -30,7 +32,7 @@ int main()
     scanf("%d", &choix_fonction);
 
     //Initialiser une couche de neurones
-    Couche* Couche = initializer_couche(num_neurones, num_xi_par_neurone);
+    Couche* couche = initializer_couche(num_neurones, num_xi_par_neurone);
 
     //Entrer les valeurs d'entrée pour chaque neurone
     double xi_valeurs[num_xi_par_neurone];
@@ -62,28 +64,28 @@ int main()
         //Changer le type de neurone en fonction de la fonction d'activation choisie
         for (int j = 0; j < num_xi_par_neurone; j++)
         {
-            Couche->neurones[i]->activation_function = activation_function;
+            couche->neurones[i]->activation_function = activation_function;
         }
         //Calculer la sortie de la couche
-        compter_couche_yi(Couche, xi_valeurs);
+        compter_couche_yi(couche, xi_valeurs);
     }
 
     //Afficher la sortie de chaque neurone dans la couche
     printf("Sortie de la couche:\n");
-    for (int i = 0; i < Couche->num_neurones; i++)
+    for (int i = 0; i < couche->num_neurones; i++)
     {
-        printf("Neurone %d sortie: %.2f\n", i+1, Couche->neurones[i]->yi);
+        printf("Neurone %d sortie: %.2f\n", i+1, couche->neurones[i]->yi);
     }
 
     //Libérer la mémoire allouée pour les neurones et la couche de neurones
-    for (int i = 0; i < Couche->num_neurones; i++)
+    for (int i = 0; i < couche->num_neurones; i++)
     {
-        free(Couche->neurones[i]->xi);//Libérer la mémoire allouée pour les valeurs d'entrée du neurone
-        free(Couche->neurones[i]->wi);//Libérer la mémoire allouée pour les poids (weights) du neurone
-        free(Couche->neurones[i]);//Libérer la mémoire allouée pour le neurone lui-même
+        free(couche->neurones[i]->xi);//Libérer la mémoire allouée pour les valeurs d'entrée du neurone
+        free(couche->neurones[i]->wi);//Libérer la mémoire allouée pour les poids (weights) du neurone
+        free(couche->neurones[i]);//Libérer la mémoire allouée pour le neurone lui-même
     }
-    free(Couche->neurones);//Libérer la mémoire allouée pour le tableau de pointeurs de neurones
-    free(Couche);//Libérer la mémoire allouée pour la structure de la couche de neurones
+    free(couche->neurones);//Libérer la mémoire allouée pour le tableau de pointeurs de neurones
+    free(couche);//Libérer la mémoire allouée pour la structure de la couche de neurones
 
     return 0;
 }
