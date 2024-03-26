@@ -152,7 +152,7 @@ Reseau* initializer_reseau(int num_couches,int* num_neurones,int* num_xi_par_neu
 
     //Saisie des couches
     for (int i = 0; i < num_couches; ++i) {
-        reseau->couches[i] = initializer_couche(num_neurones[i],num_xi_par_neurone[i]);
+        reseau->couches[i] = initializer_couche(num_neurones[i], num_xi_par_neurone[i]);
     }
 
     return reseau;
@@ -187,6 +187,5 @@ double compter_couche_yi(Couche* couche, double xi_valeurs[]) {
             return 0.0; // Valeur par défaut si la fonction d'activation n'est pas reconnue
     }
 }
-
 
 #endif
