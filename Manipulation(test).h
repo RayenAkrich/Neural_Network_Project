@@ -152,7 +152,7 @@ Reseau* initializer_reseau(int num_couches,int* num_neurones,int* num_xi_par_neu
 
     //Saisie des couches
     for (int i = 0; i < num_couches; ++i) {
-        initializer_couche(num_neurones[i],num_xi_par_neurone[i]);
+        reseau->couches[i] = initializer_couche(num_neurones[i],num_xi_par_neurone[i]);
     }
 
     return reseau;
