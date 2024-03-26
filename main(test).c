@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 #include"Fonctions_activations.h"
@@ -27,13 +26,12 @@ int main()
     double*** xi_values;
     SaisieValeurs(num_couches,reseau,num_neurones,num_xi_par_neurone);
 
-    // Calculer la sortie de chaque couche
+    //Calculer la sortie de chaque couche
     for(int i = 0; i < num_couches; i++) {
         for(int j = 0; j < reseau->couches[i]->num_neurones; j++) {
             reseau->couches[i]->neurones[j]->yi = compter_couche_yi(reseau->couches[i], xi_values[i][j]);
         }
     }
-
 
     //Afficher la sortie de chaque neurone de chaque couche
     printf("Sortie des couches:\n");
