@@ -158,6 +158,7 @@ Reseau* initializer_reseau(int num_couches,int* num_neurones,int* num_xi_par_neu
     return reseau;
 }
 
+//Calculer la sortie d'une couche
 double compter_couche_yi(Couche* couche, double xi_valeurs[]) {
     double yi;
     // Calculer la sortie du premier neurone
