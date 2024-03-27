@@ -1,3 +1,5 @@
+//Cette librairie contient quelque fonction d'optimisation 
+
 #include "math.h"
 
 #ifndef NEURONE_OUTILS_OPTIMISATION_H
