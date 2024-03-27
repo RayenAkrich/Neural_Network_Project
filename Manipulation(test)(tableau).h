@@ -1,3 +1,6 @@
+//Cette librairie contient quelques fonction de saisie et de manipulation pour le réseau , les couches , les neurones et les valeurs d'entrées
+
+
 #ifndef NEURONE_MANIPULATION_H
 #define NEURONE_MANIPULATION_H
 
