@@ -1,3 +1,7 @@
+//Fonction principale : le programme demandera de l'utilisateur de saisir le nombre des couches , puis saisir le nombre de neurone dans chaque couche ,
+//puis saisir le nombre des entrées de neurone dans chaque couche , enfin saisir les valeurs d'entrées de la premiere couche avec la saisie de la fonction d'activation de chaque couche dans chaque neurone
+//Le programme affichera les sorties de la premiere couche seulement
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Fonctions_activations.h"
@@ -6,8 +10,6 @@
 #include "Outils_optimisation.h"
 #include <time.h>
 
-
-//Fonction principale
 int main() 
 {
     srand(time(NULL));//Initialisation du random
