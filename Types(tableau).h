@@ -1,3 +1,5 @@
+//Cette librairie contient les types caractérisant le réseau neurone
+
 #ifndef NEURONE_TYPES_H
 #define NEURONE_TYPES_H
 
