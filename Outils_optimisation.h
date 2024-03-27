@@ -1,4 +1,4 @@
-//Cette librairie contient quelque fonction d'optimisation 
+//Cette librairie contient quelques fonctions d'optimisation 
 
 #include "math.h"
 
