@@ -26,9 +26,9 @@ int main()
     double*** xi_values;
     xi_values=SaisieValeurs(num_couches,reseau,num_neurones,num_xi_par_neurone);
 
-    // Calculer la sortie uniquement pour les couches pour lesquelles les valeurs ont été saisies
-    for(int i = 0; i < num_couches; i++) {
-        if (xi_values[i] != NULL) { // Vérifier si les valeurs ont été saisies pour cette couche
+    // alculer la sortie uniquement pour les couches pour lesquelles les valeurs ont été saisies
+    for(int i=0;i<num_couches;i++) {
+        if (xi_values[i] != NULL) { //Vérifier si les valeurs ont été saisies pour cette couche
             for(int j=0; j<reseau->couches[i]->num_neurones;j++) {
                 reseau->couches[i]->neurones[j]->yi = compter_couche_yi(reseau->couches[i], xi_values[i][j]);
             }
@@ -42,9 +42,9 @@ int main()
     }
 
 
-    // Libérer la mémoire allouée pour les neurones et le réseau neuronal
-    for (int i=0;i<num_couches; i++) {
-        for (int j = 0; j < reseau->couches[i]->num_neurones; j++) {
+    //Libérer la mémoire allouée pour les neurones et le réseau neuronal
+    for (int i=0;i<num_couches;i++) {
+        for (int j=0;j<reseau->couches[i]->num_neurones;j++) {
             free(reseau->couches[i]->neurones[j]->xi);
             free(reseau->couches[i]->neurones[j]->wi);
             free(reseau->couches[i]->neurones[j]);
@@ -52,9 +52,9 @@ int main()
         free(reseau->couches[i]->neurones);
         free(reseau->couches[i]);
     }
-    // Libérer la mémoire allouée pour xi_values
-    for (int i = 0; i < num_couches; i++) {
-        for (int j = 0; j < num_neurones[i]; j++) {
+    //Libérer la mémoire allouée pour xi_values
+    for (int i=0;i<num_couches;i++) {
+        for (int j=0;j<num_neurones[i];j++) {
             free(xi_values[i][j]);
         }
         free(xi_values[i]);
