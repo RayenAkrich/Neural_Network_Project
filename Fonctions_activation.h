@@ -1,3 +1,5 @@
+//Cette librairie contient quelques fonctions d'activations
+
 #include<math.h>
 #ifndef NEURONE_FONCTIONS_ACTIVATIONS_H
 #define NEURONE_FONCTIONS_ACTIVATIONS_H
