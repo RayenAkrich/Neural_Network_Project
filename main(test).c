@@ -24,24 +24,21 @@ int main()
 
     //Entrer les valeurs d'entrée pour chaque neurone et chaque couche , et saisie du fonction d'activation pour chaque neurone
     double*** xi_values;
-    SaisieValeurs(num_couches,reseau,num_neurones,num_xi_par_neurone);
+    xi_values=SaisieValeurs(num_couches,reseau,num_neurones,num_xi_par_neurone);
 
     //Calculer la sortie de chaque couche
     for(int i = 0; i < num_couches; i++) {
         for(int j = 0; j < reseau->couches[i]->num_neurones; j++) {
-            reseau->couches[i]->neurones[j]->yi = compter_couche_yi(reseau->couches[i], xi_values[i][j]);
+            reseau->couches[i]->neurones[j]->yi = compter_couche_yi(reseau->couches[i], xi_values[i]);
         }
     }
 
-    //Afficher la sortie de chaque neurone de chaque couche
-    printf("Sortie des couches:\n");
-    for (int i = 0; i < num_couches; i++)
-    {
-        printf("Sortie de la couche %d:\n",i+1);
-        for (int j=0;j<reseau->couches[i]->num_neurones;j++){
-            printf("Neurone %d sortie: %lf\n",j+1,reseau->couches[i]->neurones[j]->yi);
-        }
+    // Afficher la sortie de la première couche seulement
+    printf("Sortie de la première couche :\n");
+    for (int j = 0; j < reseau->couches[0]->num_neurones; j++) {
+        printf("Sortie du neurone %d : %lf\n", j + 1, reseau->couches[0]->neurones[j]->yi);
     }
+
 
     // Libérer la mémoire allouée pour les neurones et le réseau neuronal
     for (int i = 0; i < num_couches; i++) {
