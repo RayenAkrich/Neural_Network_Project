@@ -36,7 +36,7 @@ int choisir_type_activation() {
     scanf("%d", &choix);
     return choix;
 }
-neurone->activation_function=choix;
+
 
 // Initialiser une couche de neurones avec un nombre donné de neurones et d'entrées par neurone
 Couche* initializer_couche(int num_neurones, int num_xi_par_neurone) {
