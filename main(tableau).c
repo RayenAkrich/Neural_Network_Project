@@ -10,7 +10,7 @@
 #include "Outils_optimisation.h"
 #include <time.h>
 
-int main() 
+int main()
 {
     srand(time(NULL));//Initialisation du random
     int num_couches;
@@ -24,18 +24,14 @@ int main()
     //Initialisation du réseau
     Reseau* reseau=initializer_reseau(num_couches,num_neurones,num_xi_par_neurone);
 
-    //Entrer les valeurs d'entrée pour la premiere couche
-    double*** xi_values;
-    xi_values=SaisieValeurs(num_couches,reseau,num_neurones,num_xi_par_neurone);
+    // Entrer les valeurs d'entrée pour la premiere couche
+    SaisieValeurs(num_couches, reseau, num_neurones, num_xi_par_neurone);
 
-    // alculer la sortie uniquement pour les couches pour lesquelles les valeurs ont été saisies
-    for(int i=0;i<num_couches;i++) {
-        if (xi_values[i] != NULL) { //Vérifier si les valeurs ont été saisies pour cette couche
-            for(int j=0; j<reseau->couches[i]->num_neurones;j++) {
-                reseau->couches[i]->neurones[j]->yi = compter_couche_yi(reseau->couches[i], xi_values[i][j]);
-            }
-        }
+    // Calculer la sortie uniquement pour la première couche
+    for (int j = 0; j < reseau->couches[0]->num_neurones; j++) {
+        reseau->couches[0]->neurones[j]->yi = compter_couche_yi(reseau->couches[0], reseau->couches[0]->neurones[j]->xi);
     }
+
 
     // Afficher la sortie de la première couche seulement
     printf("Sortie de la premiere couche :\n");
@@ -54,14 +50,6 @@ int main()
         free(reseau->couches[i]->neurones);
         free(reseau->couches[i]);
     }
-    //Libérer la mémoire allouée pour xi_values
-    for (int i=0;i<num_couches;i++) {
-        for (int j=0;j<num_neurones[i];j++) {
-            free(xi_values[i][j]);
-        }
-        free(xi_values[i]);
-    }
-    free(xi_values);
     free(reseau->couches);
     free(reseau);
 
