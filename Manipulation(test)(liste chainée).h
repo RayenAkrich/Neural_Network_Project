@@ -62,6 +62,15 @@ Reseau* initializer_reseau(Couche* premiere_couche) {
     return reseau;
 }
 
+//Demander à l'utilisateur de choisir la fonction d'activation
+    int choix_fonction;
+    printf("Choisir votre fonction d'activation:\n");
+    printf("1. ReLU\n");
+    printf("2. Sigmoid\n");
+    printf("3. Softmax\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choix_fonction);
+
 // Calculer la sortie d'une couche de neurones
 void compter_couche_yi(Couche* couche, double xi_valeurs[]) {
     for (int i = 0; i < couche->num_neurones; i++) {
