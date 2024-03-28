@@ -4,30 +4,6 @@
 #ifndef NEURONE_MANIPULATION_H
 #define NEURONE_MANIPULATION_H
 
-//Saisie des valeurs pour la premiere couche
-void SaisieValeurs(int num_couches, Reseau* reseau, int* num_neurones, int* num_xi_par_neurone) {
-    printf("Saisie de la couche 1:\n");
-
-    Couche* premiere_couche = reseau->couches[0]; // Première couche du réseau
-
-    for (int j = 0; j < premiere_couche->num_neurones; j++) {
-        Neurone* neurone = premiere_couche->neurones[j]; // Neurone actuel
-
-        printf("Choix de la fonction d'activation pour le neurone %d de la couche 1:\n", j + 1);
-        printf("1. ReLU\n");
-        printf("2. Sigmoid\n");
-        printf("3. Softmax\n");
-        printf("Choix de la fonction d'activation pour le neurone %d: ", j + 1);
-        scanf("%d", &neurone->activation_function);
-
-        printf("Saisie des valeurs pour le neurone %d de la couche 1:\n", j + 1);
-        for (int k = 0; k < neurone->num_xi; k++) {
-            printf("Saisie la valeur %d pour le neurone %d de la couche 1: ", k + 1, j + 1);
-            scanf("%lf", &neurone->xi[k]);
-        }
-    }
-}
-
 //Saisie du nombres de couches ,neurones et entrées par couches
 void Saisie(int* num_couches,int** num_neurones,int** num_xi_par_neurone){
     //Demander à l'utilisateur le nombre des couches
@@ -58,6 +34,26 @@ void Saisie(int* num_couches,int** num_neurones,int** num_xi_par_neurone){
     for (int i=0;i<*num_couches;i++) {
         printf("Entrez le nombre d'entrees par neurone pour la couche %d: ",i+1);
         scanf("%d", &((*num_xi_par_neurone)[i]));
+    }
+}
+
+void SaisieValeurs(Reseau* reseau, int* num_xi_par_neurone) {
+    printf("Saisie des valeurs pour la premiere couche:\n");
+    for (int j = 0; j < reseau->couches[0]->num_neurones; j++) {
+        printf("Choix de la fonction d'activation pour le neurone %d de la couche 1:\n", j + 1);
+        printf("1. ReLU\n");
+        printf("2. Sigmoid\n");
+        printf("3. Softmax\n");
+        printf("Choix de la fonction d'activation pour le neurone %d: ", j + 1);
+        scanf("%d", &reseau->couches[0]->neurones[j]->activation_function);
+
+        reseau->couches[0]->neurones[j]->xi = (double *)malloc(num_xi_par_neurone[0] * sizeof(double));
+
+        printf("Saisie des valeurs pour le neurone %d de la couche 1:\n", j + 1);
+        for (int k = 0; k < num_xi_par_neurone[0]; k++) {
+            printf("Saisie la valeur %d pour le neurone %d de la couche 1: ", k + 1, j + 1);
+            scanf("%lf", &reseau->couches[0]->neurones[j]->xi[k]);
+        }
     }
 }
 
@@ -185,5 +181,6 @@ double compter_couche_yi(Couche* couche, double xi_valeurs[]) {
             return 0.0;//Valeur par défaut si la fonction d'activation n'est pas reconnue
     }
 }
+
 
 #endif
