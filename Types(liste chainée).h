@@ -15,11 +15,18 @@ typedef struct Neurone
     int activation_function;//Type de fonction d'activation pour le neurone (il prendra 1,2,3)
 } Neurone;
 
+// Type les valeurs d'entrée d'une couche
+typedef struct Xi_Values {
+    double *values; // Tableau des valeurs d'entrée
+    Xi_Values *next; // Pointeur vers la prochaine structure de valeurs d'entrée
+}Xi_Values;
+
 //Type couche
 typedef struct Couche
 {
     int num_neurones; //Nombre de neurones dans la couche
     Neurone **neurones; //Tableau de pointeurs de neurones
+    Xi_Values *xi_values; // Liste chaînée des valeurs d'entrée pour cette couche
     couche *next_couche; // Pointeur vers la couche suivante dans le réseau
 }Couche;
 
