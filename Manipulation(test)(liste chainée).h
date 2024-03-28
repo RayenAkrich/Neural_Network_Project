@@ -64,21 +64,20 @@ Reseau* initializer_reseau(Couche* premiere_couche) {
 
 //Demander à l'utilisateur de choisir la fonction d'activation
     int choix_fonction;
+    for(int i=0;i<= couche->num_neurones;i++){
     printf("Choisir votre fonction d'activation:\n");
     printf("1. ReLU\n");
     printf("2. Sigmoid\n");
     printf("3. Softmax\n");
     printf("Enter your choice: ");
     scanf("%d", &choix_fonction);
+    neurone->activation_function=choix_fonction   
+    }
 
 // Calculer la sortie d'une couche de neurones
-void compter_couche_yi(Couche* couche, double xi_valeurs[]) {
+void compter_couche_yi(Couche* couche) {
     for (int i = 0; i < couche->num_neurones; i++) {
         Neurone* neurone = couche->neurones[i];
-
-        for (int j = 0; j < neurone->num_xi; j++) {
-            neurone->xi[j] = xi_valeurs[j];
-        }
 
         double somme = neurone->bias;
         for (int j = 0; j < neurone->num_xi; j++) {
@@ -102,11 +101,10 @@ void compter_couche_yi(Couche* couche, double xi_valeurs[]) {
 }
 
 // Fonction pour calculer la sortie du réseau
-void calculer_sortie_reseau(Reseau *reseau, double xi_valeurs[]) {
+void calculer_sortie_reseau(Reseau *reseau) {
     Couche *couche_actuelle = reseau->premiere_couche;
     while (couche_actuelle != NULL) {
-        compter_couche_yi(couche_actuelle, xi_valeurs);
-        xi_valeurs = couche_actuelle->neurones[0]->yi;
+        compter_couche_yi(couche_actuelle);
         couche_actuelle = couche_actuelle->suivante;
     }
 }
