@@ -25,6 +25,19 @@ Neurone* initializer_neurone(int num_xi) {
     return neurone;
 }
 
+//Demander à l'utilisateur de choisir la fonction d'activation
+int choisir_type_activation() {
+    int choix;
+    printf("Choisir le type de fonction d'activation :\n");
+    printf("1. ReLU\n");
+    printf("2. Sigmoid\n");
+    printf("3. Softmax\n");
+    printf("Votre choix : ");
+    scanf("%d", &choix);
+    return choix;
+}
+neurone->activation_function=choix
+
 // Initialiser une couche de neurones avec un nombre donné de neurones et d'entrées par neurone
 Couche* initializer_couche(int num_neurones, int num_xi_par_neurone) {
     Couche* couche = (Couche*)malloc(sizeof(Couche));
@@ -62,20 +75,21 @@ Reseau* initializer_reseau(Couche* premiere_couche) {
     return reseau;
 }
 
-//Demander à l'utilisateur de choisir la fonction d'activation
-    int choix_fonction;
-    for(int i=0;i<= couche->num_neurones;i++){
-    printf("Choisir votre fonction d'activation:\n");
-    printf("1. ReLU\n");
-    printf("2. Sigmoid\n");
-    printf("3. Softmax\n");
-    printf("Enter your choice: ");
-    scanf("%d", &choix_fonction);
-    neurone->activation_function=choix_fonction   
+// Remplir la première couche du réseau avec des valeurs aléatoires pour les poids et le biais
+Couche* remplir_premiere_couche(Reseau* reseau, int num_neurones, int num_xi_par_neurone, int activation_function) {
+    if (reseau == NULL) {
+        printf("Erreur : Réseau non initialisé.\n");
+        return NULL;
     }
 
+    Couche* premiere_couche = initializer_couche(num_neurones, num_xi_par_neurone, activation_function);
+    reseau->premiere_couche = premiere_couche;
+
+    return premiere_couche;
+}
+
 // Calculer la sortie d'une couche de neurones
-void compter_couche_yi(Couche* couche) {
+double compter_couche_yi(Couche* couche) {
     for (int i = 0; i < couche->num_neurones; i++) {
         Neurone* neurone = couche->neurones[i];
 
@@ -98,13 +112,5 @@ void compter_couche_yi(Couche* couche) {
                 break;
         }
     }
-}
-
-// Fonction pour calculer la sortie du réseau
-void calculer_sortie_reseau(Reseau *reseau) {
-    Couche *couche_actuelle = reseau->premiere_couche;
-    while (couche_actuelle != NULL) {
-        compter_couche_yi(couche_actuelle);
-        couche_actuelle = couche_actuelle->suivante;
-    }
+    return neurone->yi;
 }
