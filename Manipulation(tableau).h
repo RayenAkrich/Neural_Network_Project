@@ -5,29 +5,27 @@
 #define NEURONE_MANIPULATION_H
 
 //Saisie des valeurs pour la premiere couche
-double*** SaisieValeurs(int num_couches, Reseau* reseau, int* num_neurones, int* num_xi_par_neurone) {
-    double*** xi_values=(double***)malloc(num_couches * sizeof(double**));
-
+void SaisieValeurs(int num_couches, Reseau* reseau, int* num_neurones, int* num_xi_par_neurone) {
     printf("Saisie de la couche 1:\n");
-    xi_values[0]=(double**)malloc(num_neurones[0]*sizeof(double*));//Allocation de mémoire pour le tableau contenant les entrées de la premiere couche
 
-    for (int j=0;j<num_neurones[0];j++) {
-        printf("Choix de la fonction d'activation pour le neurone %d de la couche 1:\n",j+1);
+    Couche* premiere_couche = reseau->couches[0]; // Première couche du réseau
+
+    for (int j = 0; j < premiere_couche->num_neurones; j++) {
+        Neurone* neurone = premiere_couche->neurones[j]; // Neurone actuel
+
+        printf("Choix de la fonction d'activation pour le neurone %d de la couche 1:\n", j + 1);
         printf("1. ReLU\n");
         printf("2. Sigmoid\n");
         printf("3. Softmax\n");
-        printf("Choix de la fonction d'activation pour le neurone %d: ",j+1);
-        scanf("%d", &reseau->couches[0]->neurones[j]->activation_function);
+        printf("Choix de la fonction d'activation pour le neurone %d: ", j + 1);
+        scanf("%d", &neurone->activation_function);
 
-        xi_values[0][j]=(double*)malloc(num_xi_par_neurone[0]*sizeof(double));
-
-        printf("Saisie des valeurs pour le neurone %d de la couche 1:\n",j+1);
-        for (int k=0;k<num_xi_par_neurone[0];k++) {
-            printf("Saisie la valeur %d pour le neurone %d de la couche 1: ",k+1,j+1);
-            scanf("%lf", &xi_values[0][j][k]);
+        printf("Saisie des valeurs pour le neurone %d de la couche 1:\n", j + 1);
+        for (int k = 0; k < neurone->num_xi; k++) {
+            printf("Saisie la valeur %d pour le neurone %d de la couche 1: ", k + 1, j + 1);
+            scanf("%lf", &neurone->xi[k]);
         }
     }
-    return xi_values;
 }
 
 //Saisie du nombres de couches ,neurones et entrées par couches
