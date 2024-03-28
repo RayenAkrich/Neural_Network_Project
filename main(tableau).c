@@ -24,19 +24,20 @@ int main()
     //Initialisation du réseau
     Reseau* reseau=initializer_reseau(num_couches,num_neurones,num_xi_par_neurone);
 
-    // Entrer les valeurs d'entrée pour la premiere couche
-    SaisieValeurs(num_couches, reseau, num_neurones, num_xi_par_neurone);
+    // Saisie des valeurs pour la premiere couche
+    SaisieValeurs(reseau, num_xi_par_neurone);
 
-    // Calculer la sortie uniquement pour la première couche
-    for (int j = 0; j < reseau->couches[0]->num_neurones; j++) {
-        reseau->couches[0]->neurones[j]->yi = compter_couche_yi(reseau->couches[0], reseau->couches[0]->neurones[j]->xi);
+    // Calculer la sortie uniquement pour les couches pour lesquelles les valeurs ont été saisies
+    for (int i = 0; i < num_couches; i++) {
+        for (int j = 0; j < reseau->couches[i]->num_neurones; j++) {
+            reseau->couches[i]->neurones[j]->yi = compter_couche_yi(reseau->couches[i], reseau->couches[i]->neurones[j]->xi);
+        }
     }
-
 
     // Afficher la sortie de la première couche seulement
     printf("Sortie de la premiere couche :\n");
     for (int j = 0; j < reseau->couches[0]->num_neurones; j++) {
-        printf("Sortie du neurone %d : %lf\n",j+1,reseau->couches[0]->neurones[j]->yi);
+        printf("Sortie du neurone %d : %lf\n", j + 1, reseau->couches[0]->neurones[j]->yi);
     }
 
 
