@@ -87,10 +87,10 @@ Neurone* initializer_neurone(int num_xi)
         exit;
     }
 
-    //Initialiser les poids (weight) et le biais (bias) de manière aléatoire de façon qu'on assure que les poids initiaux du neurone sont aléatoires mais centrés autour de zéro, ce qui est une pratique courante dans l'initialisation des réseaux neuronaux, aidant ainsi à prévenir le blocage du réseau dans des optima locaux pendant l'entraînement et permettant un meilleur apprentissage
+    //Initialiser les poids (weight) et le biais (bias) de manière aléatoire
     for (int i=0;i<num_xi;i++)
     {
-        neurone->wi[i]=((double)rand()/RAND_MAX)*2-1;//On utilise rand() pour assurer que le nombre soit aléatoire//On divise le nmbre obtenu par RAND_MAX pour obtenir une valeur entre 0 et 1//On maintient la valeur entre -1 et 1 par lamultiplication de 2 et la soustraction de 1
+        neurone->wi[i]=((double)rand()/RAND_MAX)*2-1;//On utilise rand() pour assurer que le nombre soit aléatoire,On divise le nmbre obtenu par RAND_MAX pour obtenir une valeur entre 0 et 1,On maintient la valeur entre -1 et 1 par lamultiplication de 2 et la soustraction de 1
     }
     neurone->bias=((double)rand()/RAND_MAX)*2-1;//Même démarche que wi
 
