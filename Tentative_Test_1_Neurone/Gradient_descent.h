@@ -7,8 +7,6 @@
 
 double gradient_descent(double input, double target_output, double learning_rate, int num_iterations) {
   // P.S : the learning rate is usually low so the predicted output is close to the target
-    double weight = 0.5; // Initial weight
-    double bias = 0.5;   // Initial bias
     double predicted_output, error;
 
     for (int i = 0; i < num_iterations; i++) {
