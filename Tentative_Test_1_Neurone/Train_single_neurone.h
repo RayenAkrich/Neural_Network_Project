@@ -1,16 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "Manipulation.h"
-#include "Outils_optimisation.h"
-#include "Fonctions_activation.h"
-#include "Derivative_activation_functions.h"
-#include "Types.h"
-#include "Save_load.h"
-#include "Gradient_descent.h"
-
-#ifndef NEURONE_TRAIN_H
-#define NEURONE_TRAIN_H
-
 // Train a single neuron network
 void train_single_neuron_network(const char* filename) {
     // Initialize network
@@ -36,13 +23,9 @@ void train_single_neuron_network(const char* filename) {
         return;
     }
 
-    // Read feature 1, feature 2, and label from the first row
+    // Read feature 1, feature 2, and label from each row
     double feature1, feature2, label;
-    fscanf(file, "%lf,%lf,%lf", &feature1, &feature2, &label);
-
-    // Train the network for each entry in the file
-    int count = 0;
-    while (fscanf(file, "%lf,%lf,%lf", &feature1, &feature2, &label) == 3) {
+    while (fscanf(file, "%lf %lf %lf", &feature1, &feature2, &label) == 3) {
         // Assign inputs to neuron
         reseau->couches[0]->neurones[0]->xi[0] = feature1;
         reseau->couches[0]->neurones[0]->xi[1] = feature2;
@@ -60,8 +43,6 @@ void train_single_neuron_network(const char* filename) {
             double loss_value = Calcul_Loss_Sigmoid(&predicted_output, 1, &label);
             printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count, predicted_output, loss_value);
         }
-
-        count++;
     }
 
     // Close the file
@@ -73,6 +54,3 @@ void train_single_neuron_network(const char* filename) {
     // Cleanup
     liberer_reseau(reseau);
 }
-
-
-#endif
