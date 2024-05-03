@@ -11,18 +11,13 @@
 #ifndef NEURONE_TRAIN_H
 #define NEURONE_TRAIN_H
 
-
 // Train a single neuron network
-void train_single_neuron_network() {
+void train_single_neuron_network(const char* filename) {
     // Initialize network
     int num_couches = 1;
     int num_neurones[1] = {1};
     int num_xi_par_neurone[1] = {2};
     Reseau* reseau = initializer_reseau(num_couches, num_neurones, num_xi_par_neurone);
-
-    // Input data
-    double inputs[2];
-    double target_output;
 
     // Load initial weights and bias
     charger_reseau(reseau, "weights_bias.bin");
@@ -33,30 +28,44 @@ void train_single_neuron_network() {
     // Set activation function to sigmoid
     reseau->couches[0]->neurones[0]->activation_function = 2;
 
-    // Train the network
-    for (int i = 0; i < num_iterations; ++i) {
-        // Retrieve input data
-        printf("Enter input 1: ");
-        scanf("%lf", &inputs[0]);
-        printf("Enter input 2: ");
-        scanf("%lf", &inputs[1]);
-        printf("Enter target output: ");
-        scanf("%lf", &target_output);
+    // Open the Excel file
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening file %s\n", filename);
+        liberer_reseau(reseau);
+        return;
+    }
+
+    // Read feature 1, feature 2, and label from the first row
+    double feature1, feature2, label;
+    fscanf(file, "%lf,%lf,%lf", &feature1, &feature2, &label);
+
+    // Train the network for each entry in the file
+    int count = 0;
+    while (fscanf(file, "%lf,%lf,%lf", &feature1, &feature2, &label) == 3) {
+        // Assign inputs to neuron
+        reseau->couches[0]->neurones[0]->xi[0] = feature1;
+        reseau->couches[0]->neurones[0]->xi[1] = feature2;
 
         // Forward pass
-        double predicted_output = compter_couche_yi(reseau->couches[0], inputs);
+        double predicted_output = compter_couche_yi(reseau->couches[0], reseau->couches[0]->neurones[0]->xi);
 
         // Backpropagation and gradient descent
-        double error = predicted_output - target_output;
-        gradient_descent(inputs[0], target_output, learning_rate, num_iterations);
-        gradient_descent(inputs[1], target_output, learning_rate, num_iterations);
-        
+        double error = predicted_output - label;
+        gradient_descent(feature1, label, learning_rate, num_iterations);
+        gradient_descent(feature2, label, learning_rate, num_iterations);
+
         // Display progress
-        if (i % 10 == 0) {
-            double loss_value = Calcul_Loss_Sigmoid(&predicted_output, 1, &target_output);
-            printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", i, predicted_output, loss_value);
+        if (count % 10 == 0) {
+            double loss_value = Calcul_Loss_Sigmoid(&predicted_output, 1, &label);
+            printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count, predicted_output, loss_value);
         }
+
+        count++;
     }
+
+    // Close the file
+    fclose(file);
 
     // Save trained weights and bias
     sauvegarder_reseau(reseau, "weights_bias.bin");
@@ -64,5 +73,6 @@ void train_single_neuron_network() {
     // Cleanup
     liberer_reseau(reseau);
 }
+
 
 #endif
