@@ -1,3 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "Manipulation.h"
+#include "Outils_optimisation.h"
+#include "Fonctions_activation.h"
+#include "Derivative_activation_functions.h"
+#include "Types.h"
+#include "Save_load.h"
+#include "Gradient_descent.h"
+
+#ifndef NEURONE_TRAIN_H
+#define NEURONE_TRAIN_H
+
 // Train a single neuron network
 void train_single_neuron_network(const char* filename) {
     // Initialize network
@@ -54,3 +67,7 @@ void train_single_neuron_network(const char* filename) {
     // Cleanup
     liberer_reseau(reseau);
 }
+
+
+
+#endif
