@@ -1,3 +1,5 @@
+//Le programme permet de faire un train pour une seule neurone de 2 entrées avec la fonction d'activation sigmoid
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Manipulation.h"
