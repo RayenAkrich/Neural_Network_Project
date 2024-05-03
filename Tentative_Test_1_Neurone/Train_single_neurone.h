@@ -20,7 +20,7 @@ void train_single_neuron_network(const char* filename) {
     Reseau* reseau = initializer_reseau(num_couches, num_neurones, num_xi_par_neurone);
 
     // Load initial weights and bias
-    charger_reseau(reseau, "weights_bias.bin");
+    charger_reseau(reseau, "weights_bias.txt");
 
     double learning_rate = 0.01;
     int num_iterations = 100;
@@ -62,7 +62,7 @@ void train_single_neuron_network(const char* filename) {
     fclose(file);
 
     // Save trained weights and bias
-    sauvegarder_reseau(reseau, "weights_bias.bin");
+    sauvegarder_reseau(reseau, "weights_bias.txt");
 
     // Cleanup
     liberer_reseau(reseau);
