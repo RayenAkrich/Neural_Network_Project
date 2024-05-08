@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include "neurone_types.h"
-#include "Types.h"
 #include "stdlib.h"
 
 #ifndef NEURONE_SAVELOAD_H
