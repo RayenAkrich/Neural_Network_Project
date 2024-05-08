@@ -1,4 +1,4 @@
-//Cette librairie contient quelques fonctions d'optimisation 
+//Cette librairie contient quelques fonctions d'optimisation
 
 #include "math.h"
 
@@ -15,4 +15,4 @@ double Calcul_Loss_Sigmoid(double* valeurs_machine, int nb_input, double* valeur
     return LOSS;
 }
 
-#endif 
+#endif
