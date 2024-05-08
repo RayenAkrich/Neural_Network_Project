@@ -12,6 +12,6 @@
 #include "Train_single_neurone.h"
 
 int main() {
-    train_single_neuron_network();
+    train_single_neuron_network("weights_biais.txt");
     return 0;
 }
