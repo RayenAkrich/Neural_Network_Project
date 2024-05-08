@@ -184,6 +184,46 @@ double compter_couche_yi(Couche* couche, double xi_valeurs[]) {
             return 0.0;//Valeur par défaut si la fonction d'activation n'est pas reconnue
     }
 }
+#include <stdlib.h>
+
+// Déclaration de la fonction liberer_reseau
+void liberer_reseau(Reseau* reseau) {
+    if (reseau == NULL) {
+        return;
+    }
+
+    // Libérer la mémoire allouée pour chaque couche du réseau
+    for (int i = 0; i < reseau->num_couches; ++i) {
+        Couche* couche = reseau->couches[i];
+        if (couche != NULL) {
+            // Libérer la mémoire allouée pour chaque neurone de la couche
+            for (int j = 0; j < couche->num_neurones; ++j) {
+                Neurone* neurone = couche->neurones[j];
+                if (neurone != NULL) {
+                    // Libérer la mémoire allouée pour les poids du neurone
+                    if (neurone->wi != NULL) {
+                        free(neurone->wi);
+                    }
+                    // Libérer la mémoire allouée pour les entrées du neurone
+                    if (neurone->xi != NULL) {
+                        free(neurone->xi);
+                    }
+                    // Libérer la mémoire allouée pour le neurone
+                    free(neurone);
+                }
+            }
+            // Libérer la mémoire allouée pour les neurones de la couche
+            free(couche->neurones);
+            // Libérer la mémoire allouée pour la couche
+            free(couche);
+        }
+    }
+
+    // Libérer la mémoire allouée pour les couches du réseau
+    free(reseau->couches);
+    // Libérer la mémoire allouée pour le réseau
+    free(reseau);
+}
 
 
 #endif
