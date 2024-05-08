@@ -1,7 +1,7 @@
 //Cette librairie contient quelques fonction de saisie et de manipulation pour le réseau , les couches , les neurones et les valeurs d'entrées
 #include <stdio.h>
 #include <stdlib.h>
-#include "Derivative_activation_functions.h"
+#include "Fonctions_activation.h"
 #include "Types.h"
 
 #ifndef NEURONE_MANIPULATION_H
