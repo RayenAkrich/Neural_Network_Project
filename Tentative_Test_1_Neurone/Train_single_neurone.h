@@ -38,6 +38,7 @@ void train_single_neuron_network(const char* filename) {
 
     // Read feature 1, feature 2, and label from each row
     double feature1, feature2, label;
+    int count = 0; // Déclaration de la variable count
     while (fscanf(file, "%lf %lf %lf", &feature1, &feature2, &label) == 3) {
         // Assign inputs to neuron
         reseau->couches[0]->neurones[0]->xi[0] = feature1;
@@ -48,14 +49,15 @@ void train_single_neuron_network(const char* filename) {
 
         // Backpropagation and gradient descent
         double error = predicted_output - label;
-        gradient_descent(feature1, label, learning_rate, num_iterations);
-        gradient_descent(feature2, label, learning_rate, num_iterations);
+        gradient_descent(feature1, label, learning_rate, num_iterations, reseau->couches[0]->neurones[0]->wi[0], reseau->couches[0]->neurones[0]->bias);
+        gradient_descent(feature2, label, learning_rate, num_iterations, reseau->couches[0]->neurones[0]->wi[1], reseau->couches[0]->neurones[0]->bias);
 
         // Display progress
         if (count % 10 == 0) {
             double loss_value = Calcul_Loss_Sigmoid(&predicted_output, 1, &label);
             printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count, predicted_output, loss_value);
         }
+        count++; // Incrémentation de count
     }
 
     // Close the file
@@ -67,6 +69,7 @@ void train_single_neuron_network(const char* filename) {
     // Cleanup
     liberer_reseau(reseau);
 }
+
 
 
 
