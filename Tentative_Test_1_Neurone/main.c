@@ -10,8 +10,10 @@
 #include "Save_load.h"
 #include "Types.h"
 #include "Train_single_neurone.h"
+#include <time.h>
 
 int main() {
-    train_single_neuron_network("dataset.xlsx");
+    srand(time(NULL));
+    train_single_neuron_network("C:\\Users\\junio\\Downloads\\dataset.xlsx");
     return 0;
 }
