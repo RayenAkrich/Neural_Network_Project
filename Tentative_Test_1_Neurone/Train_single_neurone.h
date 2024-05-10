@@ -22,15 +22,17 @@ void train_single_neuron_network(const char* filename) {
     // Load initial weights and bias
     charger_reseau(reseau, "weights_bias.txt");
 
-    double learning_rate = 0.01;
+    double learning_rate = 0.001;
     int num_iterations = 100;
 
     // Set activation function to sigmoid
     reseau->couches[0]->neurones[0]->activation_function = 2;
 
+    FILE *f = fopen("weights_bias.txt", "a");
+
     // Open the Excel file
     FILE *file = fopen(filename, "r");
-    if (file == NULL) {
+    if (file == NULL || f==NULL) {
         printf("Error opening file %s\n", filename);
         liberer_reseau(reseau);
         return;
@@ -53,16 +55,15 @@ void train_single_neuron_network(const char* filename) {
         gradient_descent(feature2, label, learning_rate, num_iterations, &(reseau->couches[0]->neurones[0]->wi[1]), &(reseau->couches[0]->neurones[0]->bias),count);
 
         // Display progress
-        if (count % 10 == 0) {
-            double loss_value = Calcul_Loss_Sigmoid(predicted_output, label);
-            printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count, predicted_output, loss_value);
-
-        }
+        double loss_value = Calcul_Loss_Sigmoid(predicted_output, label);
+        printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count+1, predicted_output, loss_value);
+        fprintf(f, "Iteration %d: Predicted Output = %.4f, Error = %.4f, Loss = %.4f\n", count+1, predicted_output, error, loss_value);
         count++;
     }
 
     // Close the file
     fclose(file);
+    fclose(f);
 
     // Save trained weights and bias
     sauvegarder_reseau(reseau, "weights_bias.txt");
