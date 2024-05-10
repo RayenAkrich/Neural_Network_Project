@@ -14,6 +14,6 @@
 
 int main() {
     srand(time(NULL));
-    train_single_neuron_network("C:\\Users\\junio\\Downloads\\dataset.xlsx");
+    train_single_neuron_network("dataset.txt");
     return 0;
 }
