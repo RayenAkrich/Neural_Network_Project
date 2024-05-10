@@ -20,7 +20,7 @@ void train_single_neuron_network(const char* filename) {
     Reseau* reseau = initializer_reseau(num_couches, num_neurones, num_xi_par_neurone);
 
     // Load initial weights and bias
-    charger_reseau(reseau, "weights_bias.txt");
+    charger_reseau(reseau, "C:\\Users\\junio\\Desktop\\Rayen\\Prog\\Neurone\\weights_bias.txt");
 
     double learning_rate = 0.01;
     int num_iterations = 100;
@@ -49,12 +49,12 @@ void train_single_neuron_network(const char* filename) {
 
         // Backpropagation and gradient descent
         double error = predicted_output - label;
-        gradient_descent(feature1, label, learning_rate, num_iterations, reseau->couches[0]->neurones[0]->wi[0], reseau->couches[0]->neurones[0]->bias);
-        gradient_descent(feature2, label, learning_rate, num_iterations, reseau->couches[0]->neurones[0]->wi[1], reseau->couches[0]->neurones[0]->bias);
+        gradient_descent(feature1, label, learning_rate, num_iterations, &reseau->couches[0]->neurones[0]->wi[0], &reseau->couches[0]->neurones[0]->bias);
+        gradient_descent(feature2, label, learning_rate, num_iterations, &reseau->couches[0]->neurones[0]->wi[1], &reseau->couches[0]->neurones[0]->bias);
 
         // Display progress
         if (count % 10 == 0) {
-            double loss_value = Calcul_Loss_Sigmoid(&predicted_output, 1, &label);
+            double loss_value = Calcul_Loss_Sigmoid(predicted_output, label);
             printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count, predicted_output, loss_value);
         }
         count++; // Incrémentation de count
@@ -64,7 +64,7 @@ void train_single_neuron_network(const char* filename) {
     fclose(file);
 
     // Save trained weights and bias
-    sauvegarder_reseau(reseau, "weights_bias.txt");
+    sauvegarder_reseau(reseau, "C:\\Users\\junio\\Desktop\\Rayen\\Prog\\Neurone\\weights_bias.txt");
 
     // Cleanup
     liberer_reseau(reseau);
