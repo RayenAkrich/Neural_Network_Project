@@ -20,7 +20,7 @@ void train_single_neuron_network(const char* filename) {
     Reseau* reseau = initializer_reseau(num_couches, num_neurones, num_xi_par_neurone);
 
     // Load initial weights and bias
-    charger_reseau(reseau, "C:\\Users\\junio\\Desktop\\Rayen\\Prog\\Neurone\\weights_bias.txt");
+    charger_reseau(reseau, "weights_bias.txt");
 
     double learning_rate = 0.01;
     int num_iterations = 100;
@@ -39,7 +39,7 @@ void train_single_neuron_network(const char* filename) {
     // Read feature 1, feature 2, and label from each row
     double feature1, feature2, label;
     int count = 0; // Déclaration de la variable count
-    while (fscanf(file, "%lf %lf %lf", &feature1, &feature2, &label) == 3) {
+    while ((fscanf(file, "%lf %lf %lf", &feature1, &feature2, &label)) == 3 && count<100) {
         // Assign inputs to neuron
         reseau->couches[0]->neurones[0]->xi[0] = feature1;
         reseau->couches[0]->neurones[0]->xi[1] = feature2;
@@ -49,22 +49,23 @@ void train_single_neuron_network(const char* filename) {
 
         // Backpropagation and gradient descent
         double error = predicted_output - label;
-        gradient_descent(feature1, label, learning_rate, num_iterations, &reseau->couches[0]->neurones[0]->wi[0], &reseau->couches[0]->neurones[0]->bias);
-        gradient_descent(feature2, label, learning_rate, num_iterations, &reseau->couches[0]->neurones[0]->wi[1], &reseau->couches[0]->neurones[0]->bias);
+        gradient_descent(feature1, label, learning_rate, num_iterations, &(reseau->couches[0]->neurones[0]->wi[0]), &(reseau->couches[0]->neurones[0]->bias),count);
+        gradient_descent(feature2, label, learning_rate, num_iterations, &(reseau->couches[0]->neurones[0]->wi[1]), &(reseau->couches[0]->neurones[0]->bias),count);
 
         // Display progress
         if (count % 10 == 0) {
             double loss_value = Calcul_Loss_Sigmoid(predicted_output, label);
             printf("Iteration %d: Predicted Output = %.4f, Loss = %.4f\n", count, predicted_output, loss_value);
+
         }
-        count++; // Incrémentation de count
+        count++;
     }
 
     // Close the file
     fclose(file);
 
     // Save trained weights and bias
-    sauvegarder_reseau(reseau, "C:\\Users\\junio\\Desktop\\Rayen\\Prog\\Neurone\\weights_bias.txt");
+    sauvegarder_reseau(reseau, "weights_bias.txt");
 
     // Cleanup
     liberer_reseau(reseau);
