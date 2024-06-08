@@ -9,6 +9,6 @@ Future Enhancements:
   Implement more complex training alogirthms and activation functions.
   
 Special thanks to my collaborators:
-  Ghofrane Dhaouadi
-  Mohamed Omar Bel Haj Youssef
-  Rayhane Houes
+  -Ghofrane Dhaouadi
+  -Mohamed Omar Bel Haj Youssef
+  -Rayhane Houes
